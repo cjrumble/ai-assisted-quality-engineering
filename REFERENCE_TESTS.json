@@ -1,0 +1,1 @@
+[{"id":"T001","scenario":"valid verified email","expected":"reset token created"},{"id":"T002","scenario":"invalid email","expected":"validation error and no token"},{"id":"T003","scenario":"unverified email","expected":"request rejected"}]
