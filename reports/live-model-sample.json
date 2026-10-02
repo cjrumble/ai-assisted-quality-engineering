@@ -1,0 +1,43 @@
+{
+  "model": "representative-live-run",
+  "note": "Illustrative sample using the repository requirements and expected structured output shape; no external model call or credential was used.",
+  "evaluation": {
+    "valid": 1,
+    "reference_coverage": 1,
+    "duplicate_rate": 0,
+    "total": 3
+  },
+  "traceability": {
+    "requirements": 3,
+    "covered_requirements": 3,
+    "coverage": 1,
+    "uncovered_requirements": [],
+    "orphan_tests": []
+  },
+  "matrix": [
+    {
+      "requirement_id": "REQ-001",
+      "requirement": "Users can sign in with valid credentials.",
+      "tests": [
+        "Valid credentials permit sign-in"
+      ],
+      "covered": true
+    },
+    {
+      "requirement_id": "REQ-002",
+      "requirement": "Invalid credentials are rejected without exposing sensitive details.",
+      "tests": [
+        "Invalid credentials are rejected without sensitive details"
+      ],
+      "covered": true
+    },
+    {
+      "requirement_id": "REQ-003",
+      "requirement": "A signed-in user can sign out and the session is invalidated.",
+      "tests": [
+        "Sign-out invalidates the authenticated session"
+      ],
+      "covered": true
+    }
+  ]
+}
