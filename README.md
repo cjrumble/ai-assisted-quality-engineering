@@ -6,6 +6,36 @@
 
 A controlled evaluation harness for using AI/LLMs to propose software tests while measuring **validity, requirement traceability, reference coverage, duplication, risk coverage, and review readiness**.
 
+## Architecture at a Glance
+
+### 30-second recruiter / hiring-manager view
+
+```
+  REQUIREMENTS             AI MODEL                 QUALITY GATES
+┌────────────────┐     ┌────────────────┐       ┌────────────────────┐
+│ REQ-001        │     │ Structured     │       │ Validity           │
+│ REQ-002   ─────┼────▶│ test proposals │──────▶│ Requirement-ID      │
+│ REQ-003        │     │ JSON contract  │       │ Duplicate rate     │
+└────────────────┘     └────────────────┘       │ Reference coverage │
+          │                                     │ Risk coverage      │
+          │                                     └─────────┬──────────┘
+          │                                               │
+          │                                               ▼
+          │                                    ┌────────────────────┐
+          └───────────────────────────────────▶│ TRACEABILITY       │
+                                               │ Requirement → Test │
+                                               │ Coverage → Review  │
+                                               └─────────┬──────────┘
+                                                         │
+                                                         ▼
+                                               ┌────────────────────┐
+                                               │ HUMAN APPROVAL      │
+                                               │ Approved test asset │
+                                               └────────────────────┘
+```
+
+**Engineering story:** the model generates proposals; deterministic code measures their quality; traceability exposes gaps; humans make the final quality decision.
+
 ## Recruiter / Hiring-Manager Snapshot
 
 | Engineering signal | Evidence in this repo |
@@ -17,26 +47,7 @@ A controlled evaluation harness for using AI/LLMs to propose software tests whil
 | **Engineering metrics** | Validity, reference coverage, duplicate rate, risk coverage, ID validity |
 | **Production discipline** | Secrets via environment variables; live model is opt-in; CI stays deterministic |
 
-### 30-second visual flow
-
-```
- REQUIREMENTS          AI MODEL              QUALITY GATES
-┌──────────────┐    ┌──────────────┐       ┌──────────────────┐
-│ REQ-001      │───▶│ Structured   │──────▶│ Validity         │
-│ REQ-002      │    │ test         │       │ ID validity      │
-│ REQ-003      │    │ proposals    │       │ Duplicate rate   │
-└──────────────┘    └──────────────┘       │ Reference cover. │
-                                           └────────┬─────────┘
-                                                    │
-                                                    ▼
-                                      ┌────────────────────────┐
-                                      │ TRACEABILITY MATRIX    │
-                                      │ Requirement → Test     │
-                                      │ Coverage → Human Review│
-                                      └────────────────────────┘
-```
-
-## Architecture
+## End-to-End Flow
 
 ```
 Requirements with stable IDs
