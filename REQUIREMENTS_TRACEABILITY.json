@@ -1,0 +1,17 @@
+[
+  {
+    "id": "REQ-001",
+    "text": "Users can sign in with valid credentials.",
+    "risk": "high"
+  },
+  {
+    "id": "REQ-002",
+    "text": "Invalid credentials are rejected without exposing sensitive details.",
+    "risk": "high"
+  },
+  {
+    "id": "REQ-003",
+    "text": "A signed-in user can sign out and the session is invalidated.",
+    "risk": "medium"
+  }
+]
