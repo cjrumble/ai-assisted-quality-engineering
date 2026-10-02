@@ -1,22 +1,46 @@
 # AI-Assisted Quality Engineering
 
-A controlled evaluation harness for using an LLM to propose software tests from requirements while measuring validity, coverage, duplication, and human-review outcomes.
+A controlled evaluation harness for using LLMs to propose software tests while measuring **validity, reference coverage, duplication, and review readiness**.
 
-## Design principles
-1. AI proposes; deterministic validators decide whether output is structurally valid.
-2. Reference tests remain human-authored.
-3. Evaluation uses a fixed dataset so model/prompt changes can be compared.
-4. Sensitive production data is excluded from prompts.
-5. The project reports limitations instead of treating generated tests as automatically correct.
+## Architecture
 
-## Pipeline
-`requirements -> structured test proposals -> schema validation -> deduplication -> evaluation -> review queue`
+```
+Requirement
+   ↓
+Prompt / Model Adapter
+   ↓
+Structured JSON proposals
+   ↓
+Schema validation
+   ↓
+Duplicate detection
+   ↓
+Reference coverage
+   ↓
+Human review
+   ↓
+Approved test assets
+```
 
-## Run offline
+## Senior-engineering practices demonstrated
+- deterministic evaluation independent of model output
+- explicit structured-output contract
+- prompt isolation and versioning
+- reference-test baselines
+- validity/coverage/duplication metrics
+- safe parser behavior for malformed model responses
+- offline tests that do not require an API key
+- separation between AI generation and quality decisions
+
+## Safety and governance
+AI output is treated as a **proposal**, never as an authoritative test oracle. Production credentials and sensitive customer data are excluded from prompts. A human reviewer remains accountable for approving generated tests.
+
+## Run
 ```bash
 pip install -r requirements.txt
 pytest -v
 python -m aiqa.evaluate
 ```
 
-Set `OPENAI_API_KEY` only when testing a live model adapter. The default evaluator is offline.
+## Extension path
+A production implementation can add model adapters, prompt/version experiments, mutation testing, requirement-to-test traceability, cost/latency measurement, hallucination checks, and human-review persistence without changing the deterministic evaluation core.
